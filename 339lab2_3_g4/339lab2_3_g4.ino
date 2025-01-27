@@ -10,7 +10,10 @@ void setup() {
 
   //Pins
   pinMode(2, INPUT);
-  analogWrite(A5, INPUT);
+  pinMode(A5, INPUT);
+  pinMode(5, OUTPUT);
+  digitalWrite(5, HIGH);
+  
 
   //Interrupts
   attachInterrupt(digitalPinToInterrupt(2), loop, HIGH);
@@ -28,16 +31,16 @@ void loop() {
       pressed = true;
 
       count++;
-      float voltage = map(analogRead(A5), 0, 1023, 0, 5.0);
-      time = millis();
+      float voltage = float(analogRead(A5))/1024 * 5.00;
+      time = millis()/1000.00;
 
+      //Serial.print("<");
       Serial.print(count);
       Serial.print(",");
       Serial.print(voltage);
-      //Serial.print(analogRead(A5));
       Serial.print(",");
       Serial.print(time);
-      Serial.println(",");
+      Serial.print("\n");
 
     }
   }
