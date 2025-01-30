@@ -10,7 +10,7 @@ import time
 
 #pack_number = readline()
 
-ser = serial.Serial(port = 'COM5', baudrate = 115200)
+ser = serial.Serial(port = 'COM5', baudrate = 115200, timeout=())
 time.sleep(3)
 print("port opened")
 

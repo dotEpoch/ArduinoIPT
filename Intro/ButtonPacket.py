@@ -19,7 +19,6 @@ except:
     ser = serial.Serial(port = 'COM5', baudrate = 115200)
     time.sleep(3)
 
-
 print("port opened")
 
 # ----------- Clear ------------ #
@@ -31,15 +30,17 @@ time.sleep(1)
 
     # Add a check if file exists
     
-if os.path.isfile("ButtonPress.txt"): 
-    print("File already exists. Overwrite?")
-    print("--> Yes haha")
-    text_file = open("ButtonPress.txt", "w")
-else:
-    text_file = open("ButtonPress.txt", "a")
+#if os.path.isfile("ButtonPress.txt"): 
+ #   print("File already exists. Overwrite?")
+  #  print("--> Yes haha")
+   # text_file = open("ButtonPressreal.txt", "w")
+#else:
+    
+text_file = open("ButtonPressreal.txt", "w")
+end_time = time.time() + 60 # Record data for 20 seconds
 
 # ------------ Comms ------------#
-while(True):
+while(time.time() < end_time):
     time.sleep(1)
     print("Bytes in input buffer: ", ser.in_waiting)
     
@@ -75,6 +76,8 @@ while(True):
         # ------------ Write -------------#
         data_packet = data_packet[:-1]
         text_file.write("<"+ data_packet + ">\n")
+        
+        if (voltage == 0.0): break
         
 
 # --------- Close ---------#
