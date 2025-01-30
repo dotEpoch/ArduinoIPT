@@ -1,6 +1,6 @@
 const int geigerPin = 2;
 volatile int count = 0;
-const unsigned long interval = 2000;
+const unsigned long interval = 1000;
 unsigned long previousMillis = 0;
 
 void countPulse() {
@@ -19,10 +19,11 @@ void loop() {
   unsigned long currentMillis = millis();
 
   if (currentMillis - previousMillis >= interval){
-    Serial.print("Counts in last ");
-    Serial.print(interval / 1000.0);
-    Serial.print(" seconds: ");
-    Serial.println(count);
+    //Serial.print("Counts in last ");
+    //Serial.print(interval / 1000.0);
+    //Serial.print(" seconds: ");
+    Serial.print(count);
+    Serial.print(",");
 
     count = 0; // Reset count
     previousMillis = currentMillis;
