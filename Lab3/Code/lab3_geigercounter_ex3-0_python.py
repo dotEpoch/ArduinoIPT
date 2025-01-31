@@ -40,17 +40,17 @@ time.sleep(1)
     
 path = "P:\ArduinoIPT\Data"
 name = "Geiger_Test4_"
-date_format = datetime.now().strftime("%Y-%m-%d(%Hh%Mm%Ss)")
+date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
 ext = ".txt"
 
-text_file = open("P:\ArduinoIPT\Data\Geiger_Test7_{0}.txt".format(date_format), "w")
+text_file = open("P:\ArduinoIPT\Lab3\Data\lab3_data_CPI(44mm)_({0}.txt".format(date_format), "w")
 data_points = []
-end_time = time.time() + 600 # Record data for 20 seconds
+end_time = time.time() + 7200 # Record data for 2 hours
 
 # ------------ Comms ------------#
 while(time.time() < end_time):
-    time.sleep(0.5)
-    #print("Bytes in input buffer: ", ser.in_waiting)
+    time.sleep(0.3)
+
     
     if (ser.in_waiting > 0):
 
@@ -72,7 +72,7 @@ while(time.time() < end_time):
 # Plotting
 counts, bins = np.histogram(data_points)
 plt.stairs(counts, bins, fill=True)
-plt.savefig("P:\ArduinoIPT\Data\histogram_test7.png")
+plt.savefig("P:\ArduinoIPT\Lab3\Hist\lab3_hist_CPI(44mm)_{0}.png".format(date_format))
 plt.show()
 
 

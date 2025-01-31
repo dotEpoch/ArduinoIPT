@@ -11,9 +11,10 @@ void setup() {
 
 unsigned long time;
 float interval = 1000.0;
+static int count = 0;
+int count
 
 void loop() {
-  static int count = 0;
 
   geigerClick(count)
   time = millis();
