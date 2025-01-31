@@ -38,17 +38,15 @@ time.sleep(1)
    # text_file = open("ButtonPressreal.txt", "w")
 #else:
     
-path = "P:\ArduinoIPT\Data"
-name = "Geiger_Test4_"
 date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
-ext = ".txt"
 
-text_file = open("P:\ArduinoIPT\Lab3\Data\lab3_data_CPI(44mm)_({0}.txt".format(date_format), "w")
+text_file = open("P:\Arduino\ArduinoIPT\Lab3\Data\lab3_data2_CPI(54mm)_{0}.txt".format(date_format), "w")
 data_points = []
-end_time = time.time() + 7200 # Record data for 2 hours
+end_time = time.time() + 3600 # Record data for 2 hours
 
 # ------------ Comms ------------#
 while(time.time() < end_time):
+    ser.flush()
     time.sleep(0.3)
 
     
@@ -66,13 +64,13 @@ while(time.time() < end_time):
         
         #stdout
         print("_____________________Data point_______________________")
-        print("\t Number of geiger clicks in 5.00s:", count, "data points") if type(count) is int else print("[COUNT ERROR]")
+        print("\t Number of geiger clicks in 1.00s:", count, "data points") if type(count) is int else print("[COUNT ERROR]")
 
 
 # Plotting
 counts, bins = np.histogram(data_points)
 plt.stairs(counts, bins, fill=True)
-plt.savefig("P:\ArduinoIPT\Lab3\Hist\lab3_hist_CPI(44mm)_{0}.png".format(date_format))
+plt.savefig("P:\Arduino\ArduinoIPT\Lab3\Hist\lab3_hist2_CPI(54mm)_{0}.png".format(date_format))
 plt.show()
 
 
