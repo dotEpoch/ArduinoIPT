@@ -37,10 +37,10 @@ time.sleep(1)
   #  print("--> Yes haha")
    # text_file = open("ButtonPressreal.txt", "w")
 #else:
-    
+
 date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
 
-text_file = open("P:\ArduinoIPT\Lab3\Data\lab3_data2_CPI(50mm)_{0}.txt".format(date_format), "w")
+text_file = open("P:\ArduinoIPT\Lab3\Data\lab3_data2_CPI(110mm)_{0}.txt".format(date_format), "w")
 data_points = []
 end_time = time.time() + 600 # Record data for 10 minutes
 
@@ -70,7 +70,7 @@ while(time.time() < end_time):
 # Plotting
 counts, bins = np.histogram(data_points)
 plt.stairs(counts, bins, fill=True)
-plt.savefig("P:\ArduinoIPT\Lab3\Hist\lab3_hist2_CPI(50mm)_{0}.png".format(date_format)) # plus or minus 5mm
+plt.savefig("P:\ArduinoIPT\Lab3\Hist\lab3_hist2_CPI(110mm)_{0}.png".format(date_format)) # plus or minus 5mm
 plt.show()  
 
 
