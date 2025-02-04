@@ -1,6 +1,6 @@
 const int geigerPin = 2;
 volatile int count = 0;
-const unsigned long interval = 3000;
+const unsigned long interval = 1000;
 unsigned long previousMillis = 0;
 
 void countPulse() {

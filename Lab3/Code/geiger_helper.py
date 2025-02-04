@@ -56,7 +56,7 @@ def main():
             
             #stdout
             print("_____________________Data point_______________________")
-            print("\t Number of geiger clicks in 3.00s:", count, "data points") if type(count) is int else print("[COUNT ERROR]")
+            print("\t Number of geiger clicks in 1.00s:", count, "data points") if type(count) is int else print("[COUNT ERROR]")
             
     # Plotting
     counts, bins = np.histogram(data_points)
