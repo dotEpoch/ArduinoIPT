@@ -32,9 +32,9 @@ def main():
         
     date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
     
-    text_file = open("P:\ArduinoIPT\Lab3\Data\lab3_data_CPI(40mm)_{0}.txt".format(date_format), "w")
+    text_file = open("P:\ArduinoIPT\Lab3\DataHIGH\lab3_data_CPI(30mm)_{0}.txt".format(date_format), "w")
     data_points = []
-    end_time = time.time() + 300 # Record data for 10 minutes
+    end_time = time.time() + 900 # Record data for 10 minutes
     
     # ------------ Comms ------------#
     while(time.time() < end_time):
@@ -61,7 +61,7 @@ def main():
     # Plotting
     counts, bins = np.histogram(data_points)
     plt.stairs(counts, bins, fill=True)
-    plt.savefig("P:\ArduinoIPT\Lab3\Hist\lab3_hist_CPI(40mm)_{0}.png".format(date_format)) # plus or minus 5mm
+    plt.savefig("P:\ArduinoIPT\Lab3\Hist\lab3_hist_CPI(30mm)_{0}.png".format(date_format)) # plus or minus 5mm
     plt.show()
     
     print("Number of data points:", len(data_points))
