@@ -42,7 +42,7 @@ date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
 
 text_file = open("P:\ArduinoIPT\Lab3\Data\lab3_data_CPI(30mm)_{0}.txt".format(date_format), "w")
 data_points = []
-end_time = time.time() + 900 # Record data for 10 minutes
+end_time = time.time() + 200 # Record data for 10 minutes
 
 # ------------ Comms ------------#
 while(time.time() < end_time):
