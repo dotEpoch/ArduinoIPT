@@ -25,7 +25,7 @@ def main():
     
     date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
     
-    text_file = open("P:\ArduinoIPT\Lab3\Data\lab3_data_IPC_200clicks_(170mm)_sample6__{0}.txt".format(date_format), "w")
+    text_file = open("P:\ArduinoIPT\Lab3\Data\lab3_data_IPC_200clicks_(130mm)_sample1__{0}.txt".format(date_format), "w")
     data_points = []
     
     # ------------ Comms ------------#
