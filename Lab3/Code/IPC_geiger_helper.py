@@ -23,25 +23,14 @@ def main():
     
     # ------------ File -------------#
     
-        # Add a check if file exists
-        
-    #if os.path.isfile("ButtonPress.txt"): 
-     #   print("File already exists. Overwrite?")
-      #  print("--> Yes haha")
-       # text_file = open("ButtonPressreal.txt", "w")
-    #else:
-        
     date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
     
-    text_file = open("P:\ArduinoIPT\Lab3\Data\lab3_data_IPC_200clicks_(178_5mm)_sample6__{0}.txt".format(date_format), "w")
+    text_file = open("P:\ArduinoIPT\Lab3\Data\lab3_data_IPC_200clicks_(170mm)_sample6__{0}.txt".format(date_format), "w")
     data_points = []
-    #end_time = time.time() + 200 # Record data for 2 minutes 20s
     
     # ------------ Comms ------------#
     while(len(data_points) < 200):
         ser.flush()
-        #time.sleep(0.1)
-    
         
         if (ser.in_waiting > 0):
     
