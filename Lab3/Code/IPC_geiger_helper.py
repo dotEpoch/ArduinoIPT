@@ -33,12 +33,12 @@ def main():
         
     date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
     
-    text_file = open("P:\ArduinoIPT\Lab3\Data\lab3_data_IPC_200clicks_(178_5mm)_sample1__{0}.txt".format(date_format), "w")
+    text_file = open("P:\ArduinoIPT\Lab3\Data\lab3_data_IPC_200clicks_(178_5mm)_sample6__{0}.txt".format(date_format), "w")
     data_points = []
     #end_time = time.time() + 200 # Record data for 2 minutes 20s
     
     # ------------ Comms ------------#
-    while(len(data_points) <= 200):
+    while(len(data_points) < 200):
         ser.flush()
         #time.sleep(0.1)
     
@@ -61,6 +61,7 @@ def main():
             
 
     print("Number of data points:", len(data_points))
+    print(data_points)
     
     # --------- Close ---------#
     text_file.close()
