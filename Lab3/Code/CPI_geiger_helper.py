@@ -29,7 +29,7 @@ def main(ser, points, dist, mean, curr):
         
     date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
     
-    text_file = open("P:\ArduinoIPT\Lab3\Misc\lab3_data_CPI_{4}_{2}s_({1}mm)_sample{3}_interval1s_{0}.txt"\
+    text_file = open("P:\ArduinoIPT\Data\Misc\lab3_data_CPI_{4}_{2}s_({1}mm)_sample{3}_interval1s_{0}.txt"\
                      .format(date_format, dist, points, curr, mean), "w")
     data_points = []
     end_time = time.time() + points # Record data for 10 minutes

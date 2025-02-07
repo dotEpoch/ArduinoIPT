@@ -22,7 +22,7 @@ def main(ser, points, dist, mean, curr):
     # ------------ File -------------#
     
     date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
-    text_file = open("P:\ArduinoIPT\Lab3\Misc\lab3_data_IPC_{4}_{2}clicks_({1}mm)_sample{3}__{0}.txt"\
+    text_file = open("P:\ArduinoIPT\Lab3\Data\lab3_data_IPC_{4}_{2}clicks_({1}mm)_sample{3}__{0}.txt"\
                      .format(date_format, dist, points, curr, mean), "w")
     data_points = []
     
