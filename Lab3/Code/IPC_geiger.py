@@ -12,8 +12,10 @@ from datetime import datetime
 
 ### Functions ###
 
-def main(ser, points, dist, mean, curr):
-
+def main():
+    # ----------- Init ------------- #
+    ser = serial.Serial(port = 'COM5', baudrate = 115200)
+    time.sleep(3)
     # ----------- Clear ------------ #
     ser.reset_input_buffer()
     ser.reset_output_buffer()
@@ -22,12 +24,12 @@ def main(ser, points, dist, mean, curr):
     # ------------ File -------------#
     
     date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
-    text_file = open("P:\ArduinoIPT\Lab3\Misc\lab3_data_IPC_{4}_{2}clicks_({1}mm)_sample{3}__{0}.txt"\
-                     .format(date_format, dist, points, curr, mean), "w")
+    
+    text_file = open("P:\ArduinoIPT\Lab3\Data\lab3_data_IPC_10000clicks_(130mm)_sampleBIG__{0}.txt".format(date_format), "w")
     data_points = []
     
     # ------------ Comms ------------#
-    while(len(data_points) < points):
+    while(len(data_points) < 10000):
         ser.flush()
         
         if (ser.in_waiting > 0):
@@ -35,7 +37,7 @@ def main(ser, points, dist, mean, curr):
             # Text file
             time_interval_raw = ser.read_until(','.encode()).decode('utf-8')
             print(time_interval_raw)
-            #text_file.write(time_interval_raw)
+            text_file.write(time_interval_raw)
     
         
             # Histogram
@@ -52,7 +54,10 @@ def main(ser, points, dist, mean, curr):
     
     # --------- Close ---------#
     text_file.close()
+    ser.close()
+
     return data_points
+
 
 
 ### Script ###

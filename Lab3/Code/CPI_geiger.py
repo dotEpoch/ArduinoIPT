@@ -11,14 +11,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-def main(ser, points, dist, mean, curr):
-
+def main():
+    # ----------- Init ------------- #
+    ser = serial.Serial(port = 'COM5', baudrate = 115200)
+    time.sleep(3)
     # ----------- Clear ------------ #
     ser.reset_input_buffer()
     ser.reset_output_buffer()
     time.sleep(1)
     
-    # ------------ File -------------#   
+    # ------------ File -------------#
+    
         # Add a check if file exists
         
     #if os.path.isfile("ButtonPress.txt"): 
@@ -29,10 +32,9 @@ def main(ser, points, dist, mean, curr):
         
     date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
     
-    text_file = open("P:\ArduinoIPT\Lab3\Misc\lab3_data_CPI_{4}_{2}s_({1}mm)_sample{3}_interval1s_{0}.txt"\
-                     .format(date_format, dist, points, curr, mean), "w")
+    text_file = open("P:\ArduinoIPT\Lab3\DataHIGH\lab3_data_CPI(30mm)_{0}.txt".format(date_format), "w")
     data_points = []
-    end_time = time.time() + points # Record data for 10 minutes
+    end_time = time.time() + 900 # Record data for 10 minutes
     
     # ------------ Comms ------------#
     while(time.time() < end_time):
@@ -47,22 +49,29 @@ def main(ser, points, dist, mean, curr):
             print(count_raw)
             text_file.write(count_raw)
     
-            # data_array
+        
+            # Histogram
             count = int(count_raw[:-1])
             data_points.append(count)
             
             #stdout
             print("_____________________Data point_______________________")
-            print("\t Number of geiger clicks in 1.00s:", count, "data points") \
-                if type(count) is int else print("[COUNT ERROR]")
+            print("\t Number of geiger clicks in 1.00s:", count, "data points") if type(count) is int else print("[COUNT ERROR]")
+            
+    # Plotting
+    counts, bins = np.histogram(data_points)
+    plt.stairs(counts, bins, fill=True)
+    plt.savefig("P:\ArduinoIPT\Lab3\Hist\lab3_hist_CPI(30mm)_{0}.png".format(date_format)) # plus or minus 5mm
+    plt.show()
     
     print("Number of data points:", len(data_points))
     
     # --------- Close ---------#
     text_file.close()
+    ser.close()
+
+            
     return data_points
-
-
 
 if __name__ == '__main__':
     try:
