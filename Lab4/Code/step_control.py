@@ -12,6 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
 from waiting import wait
+from statistics import mean
 
 def main(ser):
     
@@ -50,7 +51,13 @@ def main(ser):
     print(full_voltage)
     return full_voltage
 
-def ping_voltage():
+
+"""
+        @ Functions @
+"""
+
+def ping_voltage(ser, ):
+    
     # ----------- INIT/Clear ------------ #
     wait(lambda: ser.in_waiting == 104, timeout_seconds=10)
     print("done Initalizing")
@@ -63,18 +70,23 @@ def ping_voltage():
     ser.write(b'1')
     wait(lambda: ser.in_waiting > 0, timeout_seconds=5)
     ser.write(b'-1')
-    ser.readline()
+    now = ser.readline().decode('utf-8')[:-3]
+    #print("bump:", now, "=", get_voltage(now))
+    
     wait(lambda: ser.in_waiting > 0, timeout_seconds=5)
-    volt_ping = ser.readline()
+    volt_ping = ser.readline().decode('utf-8')[:-3]
+    #print(volt_ping)
     
-    return volt_ping
-    
-    
+    return ( get_voltage(volt_ping) + get_voltage(now) )/ 2.0
+
+
+def get_voltage(analog_read):
+    ### Base voltage is 4.70 approx +- 2
+    return float(analog_read)/1024 * 5.00 - 0.008
     
 
 def find_zero():
     # binary search
-    
     
     return 0
 
@@ -85,7 +97,7 @@ if __name__ == '__main__':
     
     # ------------ File -------------#
     date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
-    text_file = open("P:\ArduinoIPT\Lab4\Data\Muler\lab4_1stepX400_{0}.txt".format(date_format), "w")
+    text_file = open("P:\ArduinoIPT\Lab4\Data\Malus\lab4_1stepX400_{0}.txt".format(date_format), "w")
     
     try:
         main(ser)
