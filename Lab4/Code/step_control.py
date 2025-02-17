@@ -50,6 +50,34 @@ def main(ser):
     print(full_voltage)
     return full_voltage
 
+def ping_voltage():
+    # ----------- INIT/Clear ------------ #
+    wait(lambda: ser.in_waiting == 104, timeout_seconds=10)
+    print("done Initalizing")
+    
+    ser.reset_input_buffer()
+    ser.reset_output_buffer()
+    time.sleep(0.5)
+    
+    # --- Ping --- #
+    ser.write(b'1')
+    wait(lambda: ser.in_waiting > 0, timeout_seconds=5)
+    ser.write(b'-1')
+    ser.readline()
+    wait(lambda: ser.in_waiting > 0, timeout_seconds=5)
+    volt_ping = ser.readline()
+    
+    return volt_ping
+    
+    
+    
+
+def find_zero():
+    # binary search
+    
+    
+    return 0
+
 
 if __name__ == '__main__':
     ser = serial.Serial(port = 'COM5', baudrate = 115200, timeout=10.0)        
@@ -57,7 +85,7 @@ if __name__ == '__main__':
     
     # ------------ File -------------#
     date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
-    text_file = open("P:\ArduinoIPT\Lab4\Limitations\lab4_5stepsX800_{0}.txt".format(date_format), "w")
+    text_file = open("P:\ArduinoIPT\Lab4\Data\Muler\lab4_1stepX400_{0}.txt".format(date_format), "w")
     
     try:
         main(ser)
