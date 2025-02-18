@@ -25,27 +25,43 @@ def main(ser):
     time.sleep(1)
     
     # ------------ Comms ------------#
+    
+    
+    
     repetitions = 400
     #voltage_array = np.array()
     full_voltage = []
     for i in range(repetitions): #do 5 times
+    
+        step = 1 # int(input("Number of steps to send: "))
+        
+        # start_volt = ping_voltage(ser)
+        # print("Starting Voltage:", start_volt)
         ser.flush()
         time.sleep(0.3)
         
-        step = 1 #int(input("Number of steps to send: "))
         ser.write('{0}'.format(step).encode('utf-8'))
         wait(lambda: ser.in_waiting > 0, timeout_seconds=5) # wait for command to reach arduino
 
-        while (ser.in_waiting > 0):
-    
-            # Text file
-            movement_raw = ser.readline().decode('utf-8')[:-2]
-            voltage_list = np.fromstring(movement_raw, dtype=int, sep=',')
-            full_voltage.append(voltage_list)
+
+        # Text file
+        movement_raw = ser.readline().decode('utf-8')[:-2]
+        wait(lambda: ser.in_waiting == 0, timeout_seconds=5)
+        voltage_list = np.fromstring(movement_raw, dtype=int, sep=',')
+        full_voltage.append(voltage_list)
+        #print(len(voltage_list))
+        
+        # end_volt = ping_voltage(ser)
+        # print("Ending Voltage:", end_volt)
+        # voltage_bounds = f"({start_volt}, {end_volt})\n"
+        # print(voltage_bounds)
+        
+        full_data = movement_raw[:-1] + "\n"
+        print(full_data)
+        
+        text_file.write(full_data)
             
-            movement = movement_raw[:-1] + "\n"
-            print(movement)
-            text_file.write(movement)
+        
             
     
     print(full_voltage)
@@ -59,12 +75,12 @@ def main(ser):
 def ping_voltage(ser, ):
     
     # ----------- INIT/Clear ------------ #
-    wait(lambda: ser.in_waiting == 104, timeout_seconds=10)
-    print("done Initalizing")
+    # wait(lambda: ser.in_waiting == 104, timeout_seconds=10)
+    # print("done Initalizing")
     
-    ser.reset_input_buffer()
-    ser.reset_output_buffer()
-    time.sleep(0.5)
+    # ser.reset_input_buffer()
+    # ser.reset_output_buffer()
+    # time.sleep(0.5)
     
     # --- Ping --- #
     ser.write(b'1')
@@ -75,7 +91,7 @@ def ping_voltage(ser, ):
     
     wait(lambda: ser.in_waiting > 0, timeout_seconds=5)
     volt_ping = ser.readline().decode('utf-8')[:-3]
-    #print(volt_ping)
+    print(volt_ping)
     
     return ( get_voltage(volt_ping) + get_voltage(now) )/ 2.0
 
@@ -91,15 +107,18 @@ def find_zero():
     return 0
 
 
+
+
 if __name__ == '__main__':
     ser = serial.Serial(port = 'COM5', baudrate = 115200, timeout=10.0)        
     print("port opened")
     
     # ------------ File -------------#
     date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
-    text_file = open("P:\ArduinoIPT\Lab4\Data\Malus\lab4_1stepX400_{0}.txt".format(date_format), "w")
+    text_file = open("P:\ArduinoIPT\Lab4\Data\Malus\lab4_Q2.2_1stepsX400_sample2_{0}.txt".format(date_format), "w")
     
     try:
+        #print("Starting Voltage:", ping_voltage(ser))
         main(ser)
     except Exception as e: 
         ser.close()
