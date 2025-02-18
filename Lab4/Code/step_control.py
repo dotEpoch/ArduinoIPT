@@ -115,7 +115,7 @@ if __name__ == '__main__':
     
     # ------------ File -------------#
     date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
-    text_file = open("P:\ArduinoIPT\Lab4\Data\Malus\lab4_Q2.2_1stepsX400_sample2_{0}.txt".format(date_format), "w")
+    text_file = open("P:\ArduinoIPT\Lab4\Data\Malus\lab4_Q2.2_1stepsX400_sample3_{0}.txt".format(date_format), "w")
     
     try:
         #print("Starting Voltage:", ping_voltage(ser))
