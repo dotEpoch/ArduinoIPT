@@ -24,6 +24,18 @@ int maxIndex = 0;
  return maxIndex;
 }
 
+int getMin(int* array, int size){
+int minIndex = 0;
+ int min = array[minIndex];
+ for (int i=1; i<size; i++){
+   if (min>array[i]){
+     minIndex = i;
+     min = array[i];
+   }
+ }
+ return minIndex;
+}
+
 void setup() {
   pinMode(supplyPin, OUTPUT);
   pinMode(dirPin, OUTPUT);
@@ -50,13 +62,14 @@ void setup() {
     pinArray[i] = analogRead(inPin);
   }
 
-  int maxPinIndex = getMax(pinArray, 200);
+  //int maxPinIndex = getMax(pinArray, 200);
+  int minPinIndex = getMin(pinArray, 200);
 
   delay(500);
   changeDir();
 
   Serial.println("Reversing...");
-  for(int i = 0; i < (200 - maxPinIndex); i++){
+  for(int i = 0; i < (200 - minPinIndex); i++){
     step();
     
   }

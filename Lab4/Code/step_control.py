@@ -28,7 +28,7 @@ def main(ser):
     
     # ------------ Comms ------------#
     
-    repetitions = 400
+    repetitions = 200
     #voltage_array = np.array()
     full_voltage = []
     full_data_list = []
@@ -44,11 +44,11 @@ def main(ser):
         #send
         ser.write('{0}'.format(step).encode('utf-8'))
         #time.sleep(0.1)
-        wait(lambda: ser.in_waiting > 0, sleep_seconds=0.00001, timeout_seconds=5) # wait for command to reach arduino
+        wait(lambda: ser.in_waiting > 0, sleep_seconds=0.5, timeout_seconds=5) # wait for command to reach arduino
 
         # Text file
-        #   movement_raw = ser.readline().decode('utf-8')[:-3]
-        movement_raw = ser.read(ser.in_waiting).decode('utf-8')[:-3]
+        movement_raw = ser.readline().decode('utf-8')[:-3]
+        #movement_raw = ser.read_until().decode('utf-8')[:-3]
         #wait(lambda: ser.in_waiting == 0, sleep_seconds=0.0001, timeout_seconds=5)
         #voltage_list = movement_raw
         #voltage_list = list(map(int(), movement_raw.split(',')))
@@ -117,7 +117,7 @@ if __name__ == '__main__':
     
     # ------------ File -------------#
     date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
-    text_file = open("P:\ArduinoIPT\Lab4\Data\Malus\lab4_Q2.2_1stepsX400_sample5_{0}.txt".format(date_format), "w")
+    text_file = open("P:\ArduinoIPT\Lab4\Data\Brewster\lab4_Q3_1stepsX200_startMin_sample2_{0}.txt".format(date_format), "w")
     
     try:
         #print("Starting Voltage:", ping_voltage(ser))
@@ -127,6 +127,8 @@ if __name__ == '__main__':
         print("ERROR", type(e).__name__, e)
     finally:
         text_file.close()
+        ser.reset_input_buffer()
+        ser.reset_output_buffer()
         ser.close()
     
 
