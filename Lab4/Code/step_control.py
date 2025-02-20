@@ -7,12 +7,14 @@ Created on Tue Feb 11 16:58:58 2025
 
 import serial
 import time
-import os
-import numpy as np
-import matplotlib.pyplot as plt
 from datetime import datetime
 from waiting import wait
-from statistics import mean
+
+def wait_until(condition):
+    while True:
+        if (condition): break
+        
+    
 
 def main(ser):
     
@@ -26,29 +28,31 @@ def main(ser):
     
     # ------------ Comms ------------#
     
-    
-    
     repetitions = 400
     #voltage_array = np.array()
     full_voltage = []
+    full_data_list = []
     for i in range(repetitions): #do 5 times
     
         step = 1 # int(input("Number of steps to send: "))
         
         # start_volt = ping_voltage(ser)
         # print("Starting Voltage:", start_volt)
-        ser.flush()
-        time.sleep(0.3)
+        # ser.flush()
+        # time.sleep(0.3)
         
+        #send
         ser.write('{0}'.format(step).encode('utf-8'))
-        wait(lambda: ser.in_waiting > 0, timeout_seconds=5) # wait for command to reach arduino
-
+        #time.sleep(0.1)
+        wait(lambda: ser.in_waiting > 0, sleep_seconds=0.00001, timeout_seconds=5) # wait for command to reach arduino
 
         # Text file
-        movement_raw = ser.readline().decode('utf-8')[:-2]
-        wait(lambda: ser.in_waiting == 0, timeout_seconds=5)
-        voltage_list = np.fromstring(movement_raw, dtype=int, sep=',')
-        full_voltage.append(voltage_list)
+        #   movement_raw = ser.readline().decode('utf-8')[:-3]
+        movement_raw = ser.read(ser.in_waiting).decode('utf-8')[:-3]
+        #wait(lambda: ser.in_waiting == 0, sleep_seconds=0.0001, timeout_seconds=5)
+        #voltage_list = movement_raw
+        #voltage_list = list(map(int(), movement_raw.split(',')))
+        full_voltage.append(movement_raw)
         #print(len(voltage_list))
         
         # end_volt = ping_voltage(ser)
@@ -56,15 +60,13 @@ def main(ser):
         # voltage_bounds = f"({start_volt}, {end_volt})\n"
         # print(voltage_bounds)
         
-        full_data = movement_raw[:-1] + "\n"
-        print(full_data)
+        full_data_list.append(movement_raw + "\n")
+        #print(full_data)
         
-        text_file.write(full_data)
-            
         
-            
     
-    print(full_voltage)
+    #print(full_voltage) 
+    text_file.write(''.join(full_data_list)) 
     return full_voltage
 
 
@@ -115,7 +117,7 @@ if __name__ == '__main__':
     
     # ------------ File -------------#
     date_format = datetime.now().strftime("%Y-%m-%d-%Hh%Mm%Ss")
-    text_file = open("P:\ArduinoIPT\Lab4\Data\Malus\lab4_Q2.2_1stepsX400_sample3_{0}.txt".format(date_format), "w")
+    text_file = open("P:\ArduinoIPT\Lab4\Data\Malus\lab4_Q2.2_1stepsX400_sample5_{0}.txt".format(date_format), "w")
     
     try:
         #print("Starting Voltage:", ping_voltage(ser))

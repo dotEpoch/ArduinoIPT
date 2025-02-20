@@ -12,6 +12,18 @@ long rpsMicro = 0;
 
 boolean dirLow = true;
 
+int getMax(int* array, int size){
+int maxIndex = 0;
+ int max = array[maxIndex];
+ for (int i=1; i<size; i++){
+   if (max<array[i]){
+     maxIndex = i;
+     max = array[i];
+   }
+ }
+ return maxIndex;
+}
+
 void setup() {
   pinMode(supplyPin, OUTPUT);
   pinMode(dirPin, OUTPUT);
@@ -31,18 +43,24 @@ void setup() {
   rpsMicro = (1000000.0/(rps * 400.0))/2.0 - pulDelay;
   delay(1000);
 
+  int pinArray[200];
   Serial.println("Driving motor...");
   for(int i = 0; i < 200; i++){
     step();
+    pinArray[i] = analogRead(inPin);
   }
+
+  int maxPinIndex = getMax(pinArray, 200);
 
   delay(500);
   changeDir();
 
   Serial.println("Reversing...");
-  for(int i = 0; i < 200; i++){
+  for(int i = 0; i < (200 - maxPinIndex); i++){
     step();
+    
   }
+
   Serial.println("Input a number of steps to turn, negative to reverse:");
 }
 

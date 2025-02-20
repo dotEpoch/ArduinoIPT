@@ -26,7 +26,8 @@ if __name__ == '__main__':
     
     #path = "../lab4_1stepX400_2025-02-17-16h03m01s.txt"
     #path = "../Data/Malus/lab4_Q2.2_1stepsX400_sample1_2025-02-18-16h29m54s.txt"
-    path = "../Data/Malus/lab4_Q2.2_1stepsX400_sample3_2025-02-18-17h07m03s.txt"
+    # path = "../Data/Malus/lab4_Q2.2_1stepsX400_sample3_2025-02-18-17h07m03s.txt"
+    path = "../Data/Malus/lab4_Q2.2_SpeedTest_sample0_2025-02-20-14h57m44s.txt"
     file = open(path, "r")
     current_data = np.fromstring(file.read(), dtype=int, sep='\n')
     print(current_data)
