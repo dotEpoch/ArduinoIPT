@@ -33,6 +33,7 @@ int minIndex = 0;
      min = array[i];
    }
  }
+
  return minIndex;
 }
 
@@ -55,6 +56,7 @@ void setup() {
   rpsMicro = (1000000.0/(rps * 400.0))/2.0 - pulDelay;
   delay(1000);
 
+
   int pinArray[200];
   Serial.println("Driving motor...");
   for(int i = 0; i < 200; i++){
@@ -64,15 +66,22 @@ void setup() {
 
   //int maxPinIndex = getMax(pinArray, 200);
   int minPinIndex = getMin(pinArray, 200);
+  
 
   delay(500);
   changeDir();
 
   Serial.println("Reversing...");
-  for(int i = 0; i < (200 - minPinIndex); i++){
+  for(int i = 0; i < (200 - minPinIndex + 100); i++){
     step();
     
   }
+
+  /*
+  while (analogRead(inPin) != 888){
+    step();
+  }
+  */
 
   Serial.println("Input a number of steps to turn, negative to reverse:");
 }
