@@ -95,18 +95,28 @@ def ping_voltage(ser, ):
     volt_ping = ser.readline().decode('utf-8')[:-3]
     print(volt_ping)
     
-    return ( get_voltage(volt_ping) + get_voltage(now) )/ 2.0
+    return ( get_voltage(volt_ping)  + get_voltage(now) )/ 2.0
 
 
 def get_voltage(analog_read):
     ### Base voltage is 4.70 approx +- 2
-    return float(analog_read)/1024 * 5.00 - 0.008
+    return float(analog_read)/1024 * 5000 - 94.84
     
 
 def find_zero():
     # binary search
     
     return 0
+
+
+def Chi2(o, e, var):
+    result = []
+    for i in range(len(o)):
+        # if (var[i] != 0):
+        result.append((o[i] - e[i])**2 / e[i])    
+            
+    return sum(result)/len(result)
+
 
 
 

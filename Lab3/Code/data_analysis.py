@@ -107,6 +107,7 @@ collapsed_count, collapsed_bins = analysis_helper.get_countbins(data_set, 178.5,
 
 analysis_helper.plot_gaussian(collapsed_count, collapsed_bins) 
 analysis_helper.plot_poisson(collapsed_count, collapsed_bins)
+
 plt.errorbar(
     collapsed_bins[:-1],  # Use left bin edges directly
     collapsed_count[:-1],
